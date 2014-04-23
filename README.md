@@ -1,4 +1,4 @@
-twopointo-demo
-==============
+Programming Challenge
+=====================
 
 Programming challenge for TwoPointO.
