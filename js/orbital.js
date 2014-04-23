@@ -14,15 +14,25 @@
 var Orbital = (function() {
 	
 	
-	var me = {},		// Public properties and methods are added to "me"
-		position = 0,	// Position starting at the top of the screen
-		timer,			// SetInterval timer
-		speed = 1000;	// Time for each position in ms, defaults to 1 second = 1000 ms
+	var me = {},			// Public properties and methods are added to "me"
+		_position,			// Position starting at the top of the screen
+		_timer,				// SetInterval reference
+		_speed,				// Time for each position in ms, defaults to 1 second = 1000 ms
+		_orbiterElement;	// Contains the "o"
 		
-		
+	
+	/*
+	 * public function init
+	 * Starts the cycle of the o orbiting the page
+	 * Accepts a speed in ms and a starting position
+	 */
+	me.init = function(element, startSpeed, startPosition) {
+		_speed = startSpeed || 1000;
+		_position = startPosition || 0;
+		_orbiterElement = element;
+	};
 	
 	return me;
-	
 	
 })();
 
