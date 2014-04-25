@@ -8,36 +8,40 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 body{margin:0}
 article,aside,figure,footer,header,hgroup,main,nav,section,summary{display:block}
 audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
-audio:not([controls]){display:none;height:0}
 a{background:transparent}
 a:active,a:hover{outline:0}
 b,strong{font-weight:bold}
 h1{font-size:2em;margin:.67em 0}
 small{font-size:80%}
 img{border:0}
-svg:not(:root){overflow:hidden}
-figure{margin:1em 40px}
 hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
 pre{overflow:auto}
-code,pre{font-family:monospace,monospace;font-size:1em}
 button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
 button{overflow:visible}
 button,select{text-transform:none}
 button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
 button[disabled],html input[disabled]{cursor:default}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
-input{line-height:normal}
 input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
 fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
 textarea{overflow:auto}
-table{border-collapse:collapse;border-spacing:0}
-td,th{padding:0}
 
+/*
+	Main Styles
+*/
 html, body { width: 100%; height: 100%;}
 
-#orbital { font: 20px 'trebuchet ms',arial,sans-serif bold; position: absolute; text-align: center; }
+#orbital { 
+	font: 20px 'trebuchet ms',arial,sans-serif bold; position: absolute; text-align: center; 
+	-webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+
 
 #orbital.noshow { display: none; }
+
 #orbital.orb0 { top: 0;		right: 50%;		bottom:auto; left:auto; text-align: center; margin-right: -100px; }
 #orbital.orb1 { top: 50%;	right: 0;		bottom:auto; left:auto;	text-align: right; direction: rtl; }
 #orbital.orb2 { top: auto;	right: 50%;		bottom:0;	 left:auto; text-align: center; margin-right: -100px; }
