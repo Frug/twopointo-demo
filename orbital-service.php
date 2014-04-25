@@ -13,7 +13,6 @@ class Orbital_Service {
 	
 	/**
 	 * Save the given position in a session and return the set position as json
-	 * @param int $position - the position to save
 	 */
 	public function save_position() {
 		$post_data = json_decode(file_get_contents('php://input'), true);
@@ -42,7 +41,9 @@ class Orbital_Service {
 		$this->json_response = json_encode(array('position' => (integer)$this->position));
 	}
 	
-	
+	/**
+	 * Call save or get as needed, and output a json response.
+	 */
 	public function handle_request() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$this->save_position();
