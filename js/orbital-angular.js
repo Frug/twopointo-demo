@@ -59,7 +59,6 @@ app.controller(
 		};
 		
 		$scope.calculateOrbPosition = function() {
-			console.log($scope.windowHeight);
 			var positionYPercent = (1 - Math.cos(position*Math.PI/6))/2,
 				positionXPercent = (1 - Math.sin(position*Math.PI/6))/2;
 			orbYPosition = (($scope.windowHeight - theElement[0].offsetHeight) * positionYPercent);
