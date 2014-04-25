@@ -11,7 +11,9 @@
 </head>
 <body ng-controller="orbController">
 
-	<div orbital id="orbital"></div>
-
+	<div square id="clock">
+		<div orbital id="orbital"></div>
+	</div>
+	
 </body>
 </html>
