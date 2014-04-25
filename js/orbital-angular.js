@@ -9,13 +9,18 @@ app.controller(
 		// Private variables
 		var theTimer,
 			position = 0,
-			theElement;
+			theElement,
+			orbYPosition,
+			orbXPosition;
 			
 		// Variables available to the controller scope
 		$scope.debounce = false;
 		$scope.timerDelay = 1000;
 		$scope.orbContent = "O";
-		$scope.orbClass = 'orb0';
+		$scope.windowHeight = 0;
+		$scope.windowWidth = 0;
+		
+		$scope.clockPositions = [ 0, (Math.PI/6).toFixed(2), (Math.PI/3).toFixed(2), (Math.PI/2).toFixed(2) ];
 		
 		/*
 		 * Send a function to useDebounce to prevent it from being fired to quickly.
@@ -41,15 +46,24 @@ app.controller(
 			$scope.assignOrbProperties();
 		};
 		$scope.calculateOrbProperties = function() {
-			if (position > 4) {
+			if (position > 11) {
 				position = 0;
 				$scope.orbContent += "O";
 			}
-			$scope.orbClass = 'orb' + position;
+			$scope.calculateOrbPosition();
 		};
 		$scope.assignOrbProperties = function() {
+			theElement.css('top', orbYPosition + 'px');
+			theElement.css('right', orbXPosition + 'px');
 			theElement.html($scope.orbContent);
-			theElement.attr('class', $scope.orbClass);
+		};
+		
+		$scope.calculateOrbPosition = function() {
+			console.log($scope.windowHeight);
+			var positionYPercent = (1 - Math.cos(position*Math.PI/6))/2,
+				positionXPercent = (1 - Math.sin(position*Math.PI/6))/2;
+			orbYPosition = (($scope.windowHeight - theElement[0].offsetHeight) * positionYPercent);
+			orbXPosition = (($scope.windowHeight - theElement[0].offsetWidth) * positionXPercent);
 		};
 		
 		/*
@@ -57,6 +71,7 @@ app.controller(
 		 */
 		$scope.startAnimating = function(element) {
 			theElement = element;
+			$scope.calculateOrbPosition();
 			$scope.assignOrbProperties();
 			theTimer = $interval($scope.moveOrbiter, $scope.timerDelay);
 			
@@ -85,26 +100,26 @@ app.directive(
 	function($window) {
 		return {
 			restrict: 'A',
-			link: function(scope, element) {
+			controller: function($scope, $element) {
 				/*
 				 * Detect the viewport dimensions and set the square to the maximum with or height that fits.
 				 */
-				scope.onResizeFunction = function() {
-					scope.windowHeight = $window.innerHeight;
-					scope.windowWidth = $window.innerWidth;
-					scope.fitDimension = scope.windowHeight > scope.windowWidth ? scope.windowWidth : scope.windowHeight;
-					element.css( {
-						height: scope.fitDimension + 'px',
-						width: scope.fitDimension + 'px',
-						'border-radius': scope.fitDimension + 'px'
+				$scope.onResizeFunction = function() {
+					$scope.windowHeight = $window.innerHeight;
+					$scope.windowWidth = $window.innerWidth;
+					$scope.fitDimension = $scope.windowHeight > $scope.windowWidth ? $scope.windowWidth : $scope.windowHeight;
+					$element.css( {
+						height: $scope.fitDimension + 'px',
+						width: $scope.fitDimension + 'px',
+						'border-radius': $scope.fitDimension + 'px'
 					});
 				};
 				// Call the resizeFunction when the page is first loaded
-				scope.onResizeFunction();
+				$scope.onResizeFunction();
 				// Bind the resizeFunction to the window's resize event.
 				angular.element($window).bind('resize', function() {
-					scope.onResizeFunction();
-					scope.$apply();
+					$scope.onResizeFunction();
+					$scope.$apply();
 				});
 			}
 		};
