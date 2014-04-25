@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 session_start();
 
 class Orbital_Service {
-	const MAX_POSITION = 5;
+	const MAX_POSITION = 11;
 	private $position;
 	private $json_response;
 	
@@ -15,11 +15,15 @@ class Orbital_Service {
 	 * Save the given position in a session and return the set position as json
 	 * @param int $position - the position to save
 	 */
-	public function save_position($position) {
-		if (!is_numeric($position) || (integer)$position > self::MAX_POSITION) {
+	public function save_position() {
+		$post_data = json_decode(file_get_contents('php://input'), true);
+		
+		if (!isset($post_data['position']) || !is_numeric($post_data['position']) || (integer)$post_data['position'] > self::MAX_POSITION) {
 			$position = 0;
+		} else {
+			$position = $post_data['position'];
 		}
-			
+
 		$_SESSION['position'] = $position;
 		
 		$this->json_response = json_encode(array('status' => (integer)$position));
@@ -40,8 +44,8 @@ class Orbital_Service {
 	
 	
 	public function handle_request() {
-		if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_REQUEST['position'])) {
-			$this->save_position($_REQUEST['position']);
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$this->save_position();
 		} else {
 			$this->get_position_json();
 		}
