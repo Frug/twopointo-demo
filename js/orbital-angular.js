@@ -68,8 +68,8 @@ app.controller(
 		$scope.calculateOrbCoordinates = function() {
 			var positionYPercent = (1 - Math.cos(position*Math.PI/6))/2,
 				positionXPercent = (1 - Math.sin(position*Math.PI/6))/2;
-			orbYPosition = (($scope.windowHeight - theElement[0].offsetHeight) * positionYPercent);
-			orbXPosition = (($scope.windowHeight - theElement[0].offsetWidth) * positionXPercent);
+			orbYPosition = (($scope.fitDimension - theElement[0].offsetHeight) * positionYPercent);
+			orbXPosition = (($scope.fitDimension - theElement[0].offsetWidth) * positionXPercent);
 		};
 		
 		/*
